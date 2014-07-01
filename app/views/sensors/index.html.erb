@@ -1,0 +1,88 @@
+<div class="row">
+  <div class="columns large-3 panel">
+    <div class="panel callout radius">
+      <div class="row"></div>
+      <div id="log1"></div>
+      <div id="log2"></div>
+    </div>
+    <div class="panel callout radius">
+      <div id="log3"></div>
+      <div id="log4"></div>
+    </div>
+  </div>
+
+
+  <div class="columns large-7 panel">
+
+    <div class="row">
+      <div class="panel callout radius">
+        <div class="row">
+          <span class="label">Meteo Sensor</span>
+        </div>
+
+        <div class="row">
+          <select id="serialPortSelector1" class="columns large-4 right" >
+            <option value="COM1">COM1</option>
+            <option value="COM1">COM1</option>
+            <option value="COM2">COM2</option>
+            <option value="COM3">COM3</option>
+            <option value="COM4">COM4</option>
+            <option value="COM5">COM5</option>
+            <option value="COM6">COM6</option>
+            <option value="COM7">COM7</option>
+            <option value="COM8">COM8</option>
+            <option value="COM9">COM9</option>
+            <option value="COM10">COM10</option>
+          </select>
+        </div>
+        <div class="row">
+          <span class="columns large-3">Thermistor </span>
+          <input id="thermistor1" type="range"  min="0" max="100" onchange="updateThermistor(this.id, this.value, '#serialPortSelector1')" class="columns large-8"/>
+          <span id="thermistor1text" class="columns large-1">0</span>
+        </div>
+        <div class="row">
+          <span class="columns large-3">Humidity </span>
+          <input id="humidity1" type="range"  min="0" max="100" onchange="updateThermistor(this.id, this.value, '#serialPortSelector1')" class="columns large-8"/>
+          <span id="humidity1text" class="columns large-1">0</span>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="row">
+      <div class="panel callout radius">
+        <div class="row">
+          <span class="label">Smart Light Bulb</span>
+        </div>
+
+        <div class="row">
+          <select id="serialPortSelector2" class="columns large-4 right" >
+            <option value="COM1">COM1</option>
+            <option value="COM1">COM1</option>
+            <option value="COM2">COM2</option>
+            <option value="COM3">COM3</option>
+            <option value="COM4">COM4</option>
+            <option value="COM5">COM5</option>
+            <option value="COM6">COM6</option>
+            <option value="COM7">COM7</option>
+            <option value="COM8">COM8</option>
+            <option value="COM9">COM9</option>
+            <option value="COM10">COM10</option>
+          </select>
+        </div>
+        <div class="row">
+          <span class="columns large-3">Light Sensor </span>
+          <input id="lightsensor" type="range"  min="0" max="100" onchange="updateThermistor(this.id, this.value)" class="columns large-8"/>
+          <span id="lightsensorText" class="columns large-1">0</span>
+        </div>
+        <div class="row">
+          <span class="columns large-3">Humidity </span>
+          <input id="humidity2" type="range"  min="0" max="100" onchange="updateThermistor(this.id, this.value)" class="columns large-8"/>
+          <span id="humidity2text" class="columns large-1">0</span>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+</div>

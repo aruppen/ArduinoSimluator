@@ -1,0 +1,24 @@
+<header style="margin-bottom: 20px;">
+  <nav class="top-bar" data-topbar>
+    <!-- Area reserved for title -->
+    <ul class="title-area">
+      <li class="name">
+        <h1><a href="<%= root_path %>"><i class="fi-anchor"></i> Arduino Simluator</a></h1>
+      </li>
+      <li class="toggle-topbar menu-icon">
+        <a>Menu</a>
+      </li>
+    </ul>
+    <section class="top-bar-section">
+      <ul class="left">
+        <li><%=link_to "sensors", sensors_path %></li>
+      </ul>
+
+    </section>
+
+  </nav>
+
+  <!-- Error Messages -->
+  <%= render 'layouts/messages' %>
+
+</header>
