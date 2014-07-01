@@ -72,13 +72,15 @@
         </div>
         <div class="row">
           <span class="columns large-3">Light Sensor </span>
-          <input id="lightsensor" type="range"  min="0" max="100" onchange="updateThermistor(this.id, this.value)" class="columns large-8"/>
-          <span id="lightsensorText" class="columns large-1">0</span>
+          <input id="lightsensor" type="range"  min="0" max="100" onchange="updateLightBulb(this.id, this.value)" class="columns large-8"/>
+          <span id="lightsensortext" class="columns large-1">0</span>
         </div>
         <div class="row">
-          <span class="columns large-3">Humidity </span>
-          <input id="humidity2" type="range"  min="0" max="100" onchange="updateThermistor(this.id, this.value)" class="columns large-8"/>
-          <span id="humidity2text" class="columns large-1">0</span>
+          <span class="columns large-3">Light Switch </span>
+          <div class="columns left switch round large-4">
+            <input id="lightswitch" type="checkbox" onchange="updateLightBulb(this.id, this.value)">
+            <label for="lightswitch"></label>
+          </div>
         </div>
       </div>
     </div>
