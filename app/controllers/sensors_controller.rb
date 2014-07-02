@@ -1,7 +1,38 @@
+require 'serialport'
+
 class SensorsController < ApplicationController
   protect_from_forgery with: :null_session, if: Proc.new { |c| c.request.format == 'application/json' }
 
+
+
+
+
+  before_filter :init_socket
+  def init_socket
+    #params for serial port
+    port_str = "/home/ruppena/COM1"  #may be different for you
+    baud_rate = 9600
+    data_bits = 8
+    stop_bits = 1
+    parity = SerialPort::NONE
+
+    @sp = SerialPort.new(port_str, baud_rate, data_bits, stop_bits, parity)
+    @sockets = Hash.new
+
+  end
+
   def index
+  end
+
+  def create_socket(port)
+    port_str = "/home/ruppena/"  #may be different for you
+    baud_rate = 9600
+    data_bits = 8
+    stop_bits = 1
+    parity = SerialPort::NONE
+
+    sp = SerialPort.new(port_str+port, baud_rate, data_bits, stop_bits, parity)
+    return sp
   end
 
   def forwardSensorValues
@@ -10,6 +41,11 @@ class SensorsController < ApplicationController
     respond_to do |format|
       format.json {render :json => { :value => rp }.to_json}
     end
+    if !@sockets[params["serialPort"]]
+      @sockets[params["serialPort"]] = create_socket(params["serialPort"])
+    end
+    @sockets[params["serialPort"]].puts(params["data"])
+    #@sp.puts(params["data"])
   end
 
   def addArduino

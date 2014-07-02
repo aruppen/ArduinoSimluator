@@ -66,3 +66,5 @@ gem 'puma'
 # Pagination
 #gem 'will_paginate', '~> 3.0'
 #gem 'will_paginate_mongoid'
+
+gem 'serialport'
