@@ -3,31 +3,62 @@ if (!($('#log1').length <= 0)) {
 
 }
 
-$('select').on('change', function() {
-    console.log( this.value );
-});
+function updateComPort(arduino){
 
-function updateThermistor(slider, value)
-{
-    //console.log(this)
-    //$('#log1').text(value)
-    var temp = $('#thermistor1').val();
-    var hum = $('#humidity1').val();
-    var com = $("#serialPortSelector1 option:selected").val()
-    console.log(com);
-    var jsonText={'temp':temp, 'hum':hum, 'com':com};
-    $.ajax({url:'', data:jsonText, dataType:'json', cache:false, type:'POST', success:function(data){$('#log1').text(value)}});
-    $('#'+slider+'text').text(value)
+    $('.'+arduino).each(function(index){
+        $(this).removeClass('com1').addClass('com3');
+
+    });
 }
 
-function updateLightBulb(slider, value)
+function xwotcallback(arduino)
 {
-    var light = $('#lightsensor').val();
-    var onoff = $('#lightswitch').prop('checked')
-    var com = $("#serialPortSelector2 option:selected").val()
-    console.log(com);
-    var jsonText={'light':light, 'switch':onoff, 'com':com};
-    $.ajax({url:'', data:jsonText, dataType:'json', cache:false, type:'POST', success:function(data){$('#log3').text(value)}});
-    $('#'+slider+'text').text(value);
+    var serialPort = $('.'+arduino+" #serialPortSelector option:selected").val()
+    console.log('Updating Arduino: '+arduino+" on serial port "+serialPort);
+    var jsonText = {'serialPort' : serialPort, 'data' : {}}
+    $('.'+arduino+' .xwot').each(function( index ) {
+        var hwname = $(this).attr('id');
+        var value = "";
+        if($(this ).hasClass('sensor') )
+        {
+            value = $( this ).val();
+            $('#'+hwname+"text").text(value)
+            console.log( index + ": (Got A sensor "+hwname+") " + value);
+        }
+        else
+        {
+            value = $( this ).prop('checked');
+            console.log( index + ": (Got An Acutator"+hwname+") " +  value);
+        }
+        var jsonElement = {};
+        jsonElement[hwname] = value;
+        jsonText.data[hwname] = value;
+    });
+    console.log(jsonText);
+    $.ajax({
+        url:'', data:jsonText,
+        dataType:'json',
+        cache:false,
+        type:'POST',
+        success:function(data){
+            console.log("Sucess");
+        }
+    });
 }
 
+function instantiateArduino(type)
+{
+    $.ajax({
+        url:'/arduino/'+type,
+        type:'GET',
+        success:function(data){
+            console.log("Sucess");
+            $('#arduinoContainer').append(data.value);
+        }
+    });
+}
+
+function removeArduino(arduino)
+{
+    $('.'+arduino).remove();
+}

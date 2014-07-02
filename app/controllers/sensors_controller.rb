@@ -5,8 +5,8 @@ class SensorsController < ApplicationController
   end
 
   def forwardSensorValues
-    puts "This is my params: "+params["temp"].to_s
-    rp = params["temp"].to_i + 1
+    puts "This is my params: "+params["data"]["temperature"].to_s
+    rp = params["data"]["temperature"].to_i + 1
     respond_to do |format|
       format.json {render :json => { :value => rp }.to_json}
     end

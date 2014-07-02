@@ -2,83 +2,78 @@
   <div class="columns large-3 panel">
     <div class="panel callout radius">
       <div class="row"></div>
-      <div id="log1"></div>
-      <div id="log2"></div>
+      <div id="log1" onclick="instantiateArduino('dht11')"><a href="#">DHT11</a></div>
+      <div id="log2" onclick="instantiateArduino('light')"><a href="#">Light Sensor</a></div>
+      <div id="log3" onclick="instantiateArduino('led')"><a href="#">Led</a></div>
+      <div id="log4" onclick="instantiateArduino('switch')"><a href="#">Switch Button</a></div>
+      <div id="log5" onclick="instantiateArduino('motor')"><a href="#">Motor</a></div>
     </div>
     <div class="panel callout radius">
-      <div id="log3"></div>
+      <div id="log6" onclick="instantiateArduino('lightbulb')"><a href="#">Smart Light Bulb</a></div>
       <div id="log4"></div>
     </div>
   </div>
 
 
-  <div class="columns large-7 panel">
+  <div id="arduinoContainer" class="columns large-7 panel">
 
-    <div class="row">
+    <div class="row arduino1234">
       <div class="panel callout radius">
+        <div class="fi-eject right" onclick="removeArduino('arduino1234')"></div>
         <div class="row">
           <span class="label">Meteo Sensor</span>
         </div>
-
         <div class="row">
-          <select id="serialPortSelector1" class="columns large-4 right" >
+          <select id="serialPortSelector" class="com1 columns large-4 right" onchange="updateComPort('arduino1234')">
+            <option value="null">Select Port</option>
             <option value="COM1">COM1</option>
-            <option value="COM1">COM1</option>
-            <option value="COM2">COM2</option>
             <option value="COM3">COM3</option>
-            <option value="COM4">COM4</option>
             <option value="COM5">COM5</option>
-            <option value="COM6">COM6</option>
             <option value="COM7">COM7</option>
-            <option value="COM8">COM8</option>
             <option value="COM9">COM9</option>
-            <option value="COM10">COM10</option>
           </select>
         </div>
         <div class="row">
           <span class="columns large-3">Thermistor </span>
-          <input id="thermistor1" type="range"  min="0" max="100" onchange="updateThermistor(this.id, this.value, '#serialPortSelector1')" class="columns large-8"/>
-          <span id="thermistor1text" class="columns large-1">0</span>
+          <input id="temperature" type="range"  min="0" max="100" onchange="xwotcallback('arduino1234')" class="xwot sensor columns large-8"/>
+          <span id="temperaturetext" class="columns large-1">0</span>
         </div>
         <div class="row">
           <span class="columns large-3">Humidity </span>
-          <input id="humidity1" type="range"  min="0" max="100" onchange="updateThermistor(this.id, this.value, '#serialPortSelector1')" class="columns large-8"/>
-          <span id="humidity1text" class="columns large-1">0</span>
+          <input id="humidity" type="range"  min="0" max="100" onchange="xwotcallback('arduino1234')" class="xwot sensor columns large-8"/>
+          <span id="humiditytext" class="columns large-1">0</span>
         </div>
       </div>
     </div>
 
 
-    <div class="row">
-      <div class="panel callout radius">
-        <div class="row">
-          <span class="label">Smart Light Bulb</span>
-        </div>
 
+
+    <div class="row arduino4321">
+      <div class="panel callout radius">
+        <div class="fi-eject right" onclick="removeArduino('arduino4321')"></div>
         <div class="row">
-          <select id="serialPortSelector2" class="columns large-4 right" >
+          <span class="label">Meteo Sensor</span>
+        </div>
+        <div class="row">
+          <select id="serialPortSelector" class="com1 columns large-4 right" onchange="updateComPort('arduino4321')">
+            <option value="null">Select Port</option>
             <option value="COM1">COM1</option>
-            <option value="COM1">COM1</option>
-            <option value="COM2">COM2</option>
             <option value="COM3">COM3</option>
-            <option value="COM4">COM4</option>
             <option value="COM5">COM5</option>
-            <option value="COM6">COM6</option>
             <option value="COM7">COM7</option>
-            <option value="COM8">COM8</option>
             <option value="COM9">COM9</option>
-            <option value="COM10">COM10</option>
           </select>
         </div>
         <div class="row">
           <span class="columns large-3">Light Sensor </span>
-          <input id="lightsensor" type="range"  min="0" max="100" onchange="updateLightBulb(this.id, this.value)" class="columns large-8"/>
+          <input id="lightsensor" type="range"  min="0" max="100" onchange="xwotcallback('arduino4321')" class="xwot sensor columns large-8"/>
           <span id="lightsensortext" class="columns large-1">0</span>
         </div>
         <div class="row">
           <span class="columns large-3">Light Switch </span>
           <div class="columns left switch round large-4">
-            <input id="lightswitch" type="checkbox" onchange="updateLightBulb(this.id, this.value)">
+            <input id="lightswitch" type="checkbox" onchange="xwotcallback('arduino4321')" class="xwot actuator">
             <label for="lightswitch"></label>
           </div>
         </div>
