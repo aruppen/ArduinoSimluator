@@ -22,7 +22,7 @@ function xwotcallback(arduino)
         if($(this ).hasClass('sensor') )
         {
             value = $( this ).val();
-            $('#'+hwname+"text").text(value)
+            $('.'+arduino+' #'+hwname+"text").text(value)
             console.log( index + ": (Got A sensor "+hwname+") " + value);
         }
         else
@@ -49,7 +49,7 @@ function xwotcallback(arduino)
 function instantiateArduino(type)
 {
     $.ajax({
-        url:'/arduino/'+type,
+        url:'addArduino?type='+type,
         type:'GET',
         success:function(data){
             console.log("Sucess");

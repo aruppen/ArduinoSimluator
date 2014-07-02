@@ -1,6 +1,8 @@
 ArduinoSimulator::Application.routes.draw do
   get "sensors/index", as: "sensors"
   post "sensors/index" => "sensors#forwardSensorValues"
+
+  get "sensors/addArduino" => "sensors#addArduino"
   get "welcome/index"
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -1,0 +1,30 @@
+<div class="row arduino<%=arduinoNumber%>">
+  <div class="panel callout radius">
+    <div class="fi-eject right" onclick="removeArduino('arduino<%=arduinoNumber%>')"></div>
+    <div class="row">
+      <span class="label">Smart Light Bulb</span>
+    </div>
+    <div class="row">
+      <select id="serialPortSelector" class="com1 columns large-4 right" onchange="updateComPort('arduino<%=arduinoNumber%>')">
+        <option value="null">Select Port</option>
+        <option value="COM1">COM1</option>
+        <option value="COM3">COM3</option>
+        <option value="COM5">COM5</option>
+        <option value="COM7">COM7</option>
+        <option value="COM9">COM9</option>
+      </select>
+    </div>
+    <div class="row">
+      <span class="columns large-3">Light Sensor </span>
+      <input id="lightsensor" type="range"  min="0" max="100" onchange="xwotcallback('arduino<%=arduinoNumber%>')" class="xwot sensor columns large-8"/>
+      <span id="lightsensortext" class="columns large-1">0</span>
+    </div>
+    <div class="row">
+      <span class="columns large-3">Light Switch </span>
+      <div class="columns left switch round large-4">
+        <input id="lightswitch" type="checkbox" onchange="xwotcallback('arduino<%=arduinoNumber%>')" class="xwot actuator">
+        <label for="lightswitch"></label>
+      </div>
+    </div>
+  </div>
+</div>
