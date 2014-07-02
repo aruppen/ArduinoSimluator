@@ -17,7 +17,7 @@ function xwotcallback(arduino)
     console.log('Updating Arduino: '+arduino+" on serial port "+serialPort);
     var jsonText = {'serialPort' : serialPort, 'data' : {}}
     $('.'+arduino+' .xwot').each(function( index ) {
-        var hwname = $(this).attr('id');
+        var hwname = $(this).attr('id').replace(/[0-9]+/i, '');
         var value = "";
         if($(this ).hasClass('sensor') )
         {

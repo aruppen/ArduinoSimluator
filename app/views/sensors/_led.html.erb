@@ -17,8 +17,8 @@
     <div class="row">
       <span class="columns large-3">LED </span>
       <div class="columns left switch round large-4">
-        <input id="led" type="checkbox" onchange="xwotcallback('arduino<%=arduinoNumber%>')" class="xwot actuator">
-        <label for="led"></label>
+        <input id="led<%=arduinoNumber%>" type="checkbox" onchange="xwotcallback('arduino<%=arduinoNumber%>')" class="xwot actuator">
+        <label for="led<%=arduinoNumber%>"></label>
       </div>
     </div>
   </div>

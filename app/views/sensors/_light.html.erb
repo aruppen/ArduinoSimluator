@@ -16,8 +16,8 @@
     </div>
     <div class="row">
       <span class="columns large-3">Luminosity </span>
-      <input id="luminosity" type="range"  min="0" max="100" onchange="xwotcallback('arduino<%=arduinoNumber%>')" class="xwot sensor columns large-8"/>
-      <span id="luminositytext" class="columns large-1">0</span>
+      <input id="luminosity<%=arduinoNumber%>" type="range"  min="0" max="100" onchange="xwotcallback('arduino<%=arduinoNumber%>')" class="xwot sensor columns large-8"/>
+      <span id="luminosity<%=arduinoNumber%>text" class="columns large-1">0</span>
     </div>
   </div>
 </div>
