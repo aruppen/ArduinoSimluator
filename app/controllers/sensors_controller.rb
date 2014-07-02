@@ -2,7 +2,8 @@ require 'serialport'
 
 class SensorsController < ApplicationController
   protect_from_forgery with: :null_session, if: Proc.new { |c| c.request.format == 'application/json' }
-
+  @@sockets = Hash.new
+  @@socats = Hash.new
 
 
 
@@ -16,8 +17,8 @@ class SensorsController < ApplicationController
     stop_bits = 1
     parity = SerialPort::NONE
 
-    @sp = SerialPort.new(port_str, baud_rate, data_bits, stop_bits, parity)
-    @sockets = Hash.new
+    #@sp = SerialPort.new(port_str, baud_rate, data_bits, stop_bits, parity)
+
 
   end
 
@@ -25,14 +26,19 @@ class SensorsController < ApplicationController
   end
 
   def create_socket(port)
+    splitted = port.split(//)
+    splitted[splitted.size - 1] = (splitted[splitted.size - 1].to_i + 1).to_s
+    port2 = splitted.join()
+    @@socats[port] = IO.popen('socat -d -d pty,raw,echo=0,link=$HOME/'+port+' pty,raw,echo=0,link=$HOME/'+port2)
+    sleep(2)
     port_str = "/home/ruppena/"  #may be different for you
     baud_rate = 9600
     data_bits = 8
     stop_bits = 1
     parity = SerialPort::NONE
 
-    sp = SerialPort.new(port_str+port, baud_rate, data_bits, stop_bits, parity)
-    return sp
+    @@sockets[params["serialPort"]] = SerialPort.new(port_str+port, baud_rate, data_bits, stop_bits, parity)
+    return 0
   end
 
   def forwardSensorValues
@@ -41,10 +47,10 @@ class SensorsController < ApplicationController
     respond_to do |format|
       format.json {render :json => { :value => rp }.to_json}
     end
-    if !@sockets[params["serialPort"]]
-      @sockets[params["serialPort"]] = create_socket(params["serialPort"])
+    if !@@sockets[params["serialPort"]]
+      create_socket(params["serialPort"])
     end
-    @sockets[params["serialPort"]].puts(params["data"])
+    @@sockets[params["serialPort"]].puts(params["data"])
     #@sp.puts(params["data"])
   end
 
