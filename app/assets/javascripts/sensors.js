@@ -3,6 +3,11 @@ if (!($('#log1').length <= 0)) {
     var interval = setInterval(function(){runner();}, 1000);
 }
 
+/*
+ *  This is the Regex Selector for JQuery by J. Padolesy
+ *  More information:
+ *  http://james.padolsey.com/javascript/regex-selector-for-jquery/
+ */
 jQuery.expr[':'].regex = function(elem, index, match) {
     var matchParams = match[3].split(','),
         validLabels = /^(data|css):/,
@@ -16,6 +21,13 @@ jQuery.expr[':'].regex = function(elem, index, match) {
     return regex.test(jQuery(elem)[attr.method](attr.property));
 }
 
+/**
+ * Each Arduino Panel has an option-select called #serialPortSelector. When a serial port is select, this needs
+ * to be reflected in the class of the corresponding Arduino Panel. This is important to route incoming messages
+ * to the right Arduino board
+ * @param arduino The Arduino board to which the #serialPortSelector belongs to
+ * @param option The #serialPortSelector itself
+ */
 function updateComPort(arduino, option){
     var selectedOption = option.value;
     console.log(selectedOption);
@@ -41,7 +53,13 @@ function updateComPort(arduino, option){
 
     });
 }
-
+/**
+ * Generic function which is called when one of the elements of an Arduino board changes. The method iterates over
+ * all sensors and actuators of this Arduino, creates a JSON message representing the new state of this board
+ * and sends it with a POST back to the controller.
+ *
+ * @param arduino the Arduino Panel which is updated.
+ */
 function xwotcallback(arduino)
 {
     var serialPort = $('.'+arduino+" #serialPortSelector option:selected").val()
@@ -77,6 +95,11 @@ function xwotcallback(arduino)
     });
 }
 
+/**
+ * Add a new "type" of Arduino Board to the instantiated boards. This is used for the onclick events on the menu.
+ *
+ * @param type The selected Arduino Board to create.
+ */
 function instantiateArduino(type)
 {
     $.ajax({
@@ -89,11 +112,23 @@ function instantiateArduino(type)
     });
 }
 
+/**
+ * Removes and Arduino Baord from the instantiated boards.
+ *
+ * @param arduino The Arduino Board to remove.
+ */
 function removeArduino(arduino)
 {
     $('.'+arduino).remove();
 }
 
+/**
+ * Asks the controller for a new line receivec on the serial bus on a given Socket. Upon receiving the response
+ * from the controller, the Arduino Board currently communicating on the specified "comPort" is updated with
+ * the received values.
+ *
+ * @param comPort the serial port on which to look for new data.
+ */
 function getLine(comPort)
 {
     $.ajax({
@@ -113,6 +148,12 @@ function getLine(comPort)
     });
 }
 
+/**
+ * Helper function which iterates over all instantiated Arduino Boards. For each board, the getLine(comPort)
+ * method is called.
+ * This method can be used in the setInterval for a polling approach to update the instantiated Arduino Boards with
+ * messages received on their corresponding serial bus.
+ */
 function runner()
 {
     $('div:regex(class, arduino[0-9]+):regex(class, COM[0-9])').each(function(){
