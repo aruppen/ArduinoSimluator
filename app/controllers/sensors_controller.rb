@@ -1,4 +1,6 @@
 require 'serialport'
+require 'arduino'
+
 
 class SensorsController < ApplicationController
   protect_from_forgery with: :null_session, if: Proc.new { |c| c.request.format == 'application/json' }
@@ -37,7 +39,9 @@ class SensorsController < ApplicationController
     stop_bits = 1
     parity = SerialPort::NONE
 
-    @@sockets[params["serialPort"]] = SerialPort.new(port_str+port, baud_rate, data_bits, stop_bits, parity)
+    ##@@sockets[params["serialPort"]] = SerialPort.new(port_str+port, baud_rate, data_bits, stop_bits, parity)
+    @@sockets[params["serialPort"]] = Arduino::Arduino.new(port_str+port)
+    @@sockets[params["serialPort"]].read
     return 0
   end
 
@@ -50,8 +54,16 @@ class SensorsController < ApplicationController
     if !@@sockets[params["serialPort"]]
       create_socket(params["serialPort"])
     end
-    @@sockets[params["serialPort"]].puts(params["data"])
+    @@sockets[params["serialPort"]].write(params["data"])
     #@sp.puts(params["data"])
+  end
+
+  def getLastReadLine
+    sp = params["sp"].to_s
+    puts @@sockets[sp].next
+    respond_to do |format|
+      format.json {render :json => { :value => 'ok' }.to_json}
+    end
   end
 
   def addArduino
