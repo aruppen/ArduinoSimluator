@@ -10,7 +10,7 @@ class Arduino
   def initialize(port="/home/ruppena/COM2", baud=9600)
     @serial_port = SerialPort.new(port, baud)#, 8, 1, SerialPort::NONE)
     #sleep 5
-    @lastline = ""
+    @lastline = "{}"
   end
 
   def write(cmd)
@@ -31,7 +31,9 @@ class Arduino
   end
 
   def next
-    return @lastline
+    message = @lastline
+    @lastline = "{}"
+    return message
   end
 end
 

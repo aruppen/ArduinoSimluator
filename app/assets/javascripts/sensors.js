@@ -1,6 +1,6 @@
 if (!($('#log1').length <= 0)) {
     console.log('Element found');
-
+    var interval = setInterval(function(){runner();}, 1000);
 }
 
 jQuery.expr[':'].regex = function(elem, index, match) {
@@ -19,7 +19,7 @@ jQuery.expr[':'].regex = function(elem, index, match) {
 function updateComPort(arduino, option){
     var selectedOption = option.value;
     console.log(selectedOption);
-    var arduinoclasses = $('.arduino1234').attr('class').split(' ');
+    var arduinoclasses = $('.'+arduino).attr('class').split(' ');
     var oldCom;
     for(var i in arduinoclasses)
     {
@@ -94,10 +94,10 @@ function removeArduino(arduino)
     $('.'+arduino).remove();
 }
 
-function getLine()
+function getLine(comPort)
 {
     $.ajax({
-        url:'serial?sp=COM1',
+        url:'serial?sp='+comPort,
         type:'GET',
         success:function(data){
             console.log(data);
@@ -107,8 +107,26 @@ function getLine()
             //$('div:regex(class, arduino[0-9]+).COM1 #temperature').val(data["data"]["temperature"]);
             $.each(data['data'], function(key, value) {
                 console.log( "The key is '" + key + "' and the value is '" + value + "'" );
-                $('div:regex(class, arduino[0-9]+).COM1 #'+key).val(value);
+                $('div:regex(class, arduino[0-9]+).'+comPort+' #'+key).val(value);
             });
         }
+    });
+}
+
+function runner()
+{
+    $('div:regex(class, arduino[0-9]+):regex(class, COM[0-9])').each(function(){
+
+        var arduinoclasses = $(this).attr('class').split(' ');
+        var comPort;
+        for(var i in arduinoclasses)
+        {
+            if(arduinoclasses[i].match(/COM/g))
+            {
+                comPort = arduinoclasses[i];
+            }
+        }
+        console.log("will update "+comPort)
+        getLine(comPort);
     });
 }

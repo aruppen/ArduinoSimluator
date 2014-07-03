@@ -5,7 +5,7 @@
       <span class="label">Motor</span>
     </div>
     <div class="row">
-      <select id="serialPortSelector" class="com1 columns large-4 right" onchange="updateComPort('arduino<%=arduinoNumber%>')">
+      <select id="serialPortSelector" class="com1 columns large-4 right" onchange="updateComPort('arduino<%=arduinoNumber%>', this)">
         <option value="null">Select Port</option>
         <option value="COM1">COM1</option>
         <option value="COM3">COM3</option>

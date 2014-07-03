@@ -60,7 +60,11 @@ class SensorsController < ApplicationController
 
   def getLastReadLine
     sp = params["sp"].to_s
-    nextline = @@sockets[sp].next
+    begin
+      nextline = @@sockets[sp].next
+    rescue NoMethodError
+      nextline = "{}"
+    end
     puts nextline
     json_line = JSON.parse(nextline, symbolize_names: true)
     respond_to do |format|
@@ -73,10 +77,10 @@ class SensorsController < ApplicationController
     puts "Will create "+type
     arduinoNumber = rand(9999999)
     case type
-    when 'dht11'
-      arduinoPart = 'sensors/dht11'
-    when 'light'
-      arduinoPart = 'sensors/light'
+      when 'dht11'
+        arduinoPart = 'sensors/dht11'
+      when 'light'
+        arduinoPart = 'sensors/light'
       when 'led'
         arduinoPart = 'sensors/led'
       when 'switch'
