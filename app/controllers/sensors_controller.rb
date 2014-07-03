@@ -60,9 +60,11 @@ class SensorsController < ApplicationController
 
   def getLastReadLine
     sp = params["sp"].to_s
-    puts @@sockets[sp].next
+    nextline = @@sockets[sp].next
+    puts nextline
+    json_line = JSON.parse(nextline, symbolize_names: true)
     respond_to do |format|
-      format.json {render :json => { :value => 'ok' }.to_json}
+      format.json {render :json => {:serialPort => sp, :data => json_line}.to_json}
     end
   end
 

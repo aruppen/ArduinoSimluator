@@ -136,6 +136,7 @@ DEPENDENCIES
   httparty
   jbuilder (~> 1.2)
   jquery-rails
+  json
   puma
   rails (= 4.0.4)
   sass-rails (~> 4.0.2)

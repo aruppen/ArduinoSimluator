@@ -68,3 +68,4 @@ gem 'puma'
 #gem 'will_paginate_mongoid'
 
 gem 'serialport'
+gem 'json'

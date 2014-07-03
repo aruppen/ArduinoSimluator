@@ -3,10 +3,41 @@ if (!($('#log1').length <= 0)) {
 
 }
 
-function updateComPort(arduino){
+jQuery.expr[':'].regex = function(elem, index, match) {
+    var matchParams = match[3].split(','),
+        validLabels = /^(data|css):/,
+        attr = {
+            method: matchParams[0].match(validLabels) ?
+                matchParams[0].split(':')[0] : 'attr',
+            property: matchParams.shift().replace(validLabels,'')
+        },
+        regexFlags = 'ig',
+        regex = new RegExp(matchParams.join('').replace(/^\s+|\s+$/g,''), regexFlags);
+    return regex.test(jQuery(elem)[attr.method](attr.property));
+}
 
+function updateComPort(arduino, option){
+    var selectedOption = option.value;
+    console.log(selectedOption);
+    var arduinoclasses = $('.arduino1234').attr('class').split(' ');
+    var oldCom;
+    for(var i in arduinoclasses)
+    {
+        if(arduinoclasses[i].match(/COM/g))
+        {
+            oldCom = arduinoclasses[i];
+        }
+    }
+    console.log("OldCom: "+oldCom);
     $('.'+arduino).each(function(index){
-        $(this).removeClass('com1').addClass('com3');
+        if(oldCom == undefined)
+        {
+            $(this).addClass(selectedOption);
+        }
+        else
+        {
+            $(this).removeClass(oldCom).addClass(selectedOption);
+        }
 
     });
 }
@@ -61,4 +92,23 @@ function instantiateArduino(type)
 function removeArduino(arduino)
 {
     $('.'+arduino).remove();
+}
+
+function getLine()
+{
+    $.ajax({
+        url:'serial?sp=COM1',
+        type:'GET',
+        success:function(data){
+            console.log(data);
+            console.log(data["serialPort"]);
+            console.log(data["data"]["temperature"]);
+
+            //$('div:regex(class, arduino[0-9]+).COM1 #temperature').val(data["data"]["temperature"]);
+            $.each(data['data'], function(key, value) {
+                console.log( "The key is '" + key + "' and the value is '" + value + "'" );
+                $('div:regex(class, arduino[0-9]+).COM1 #'+key).val(value);
+            });
+        }
+    });
 }

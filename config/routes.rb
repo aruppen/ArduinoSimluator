@@ -1,6 +1,7 @@
 ArduinoSimulator::Application.routes.draw do
   get "sensors/index", as: "sensors"
   post "sensors/index" => "sensors#forwardSensorValues"
+  get "sensors/serial" => "sensors#getLastReadLine"
 
   get "sensors/addArduino" => "sensors#addArduino"
   get "welcome/index"
