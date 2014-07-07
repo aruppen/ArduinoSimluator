@@ -27,7 +27,7 @@ class SensorsController < ApplicationController
     if !@@sockets[params["serialPort"]]
       create_socket(params["serialPort"])
     end
-    @@sockets[params["serialPort"]].write(params["data"])
+    @@sockets[params["serialPort"]].write(params["data"].to_json)
   end
 
   # For a given serial port, returns the last new received line.
