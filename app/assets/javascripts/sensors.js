@@ -21,7 +21,7 @@ jQuery.expr[':'].regex = function(elem, index, match) {
         regexFlags = 'ig',
         regex = new RegExp(matchParams.join('').replace(/^\s+|\s+$/g,''), regexFlags);
     return regex.test(jQuery(elem)[attr.method](attr.property));
-}
+};
 
 /**
  * Each Arduino Panel has an option-select called #serialPortSelector. When a serial port is select, this needs
@@ -64,16 +64,16 @@ function updateComPort(arduino, option){
  */
 function xwotcallback(arduino)
 {
-    var serialPort = $('.'+arduino+" #serialPortSelector option:selected").val()
+    var serialPort = $('.'+arduino+" #serialPortSelector option:selected").val();
     console.log('Updating Arduino: '+arduino+" on serial port "+serialPort);
-    var jsonText = {'serialPort' : serialPort, 'data' : {}}
+    var jsonText = {'serialPort' : serialPort, 'data' : {}};
     $('.'+arduino+' .xwot').each(function( index ) {
-        var hwname = $(this).attr('id').replace(/[0-9]+/i, '');
+        var hwname = $(this).attr('id')//.replace(/[0-9]+/i, '');
         var value = "";
         if($(this ).hasClass('sensor') )
         {
             value = $( this ).val();
-            $('.'+arduino+' #'+hwname+"text").text(value)
+            $('.'+arduino+' #'+hwname+"text").text(value);
             console.log( index + ": (Got A sensor "+hwname+") " + value);
         }
         else
@@ -137,14 +137,20 @@ function getLine(comPort)
         url:'serial?sp='+comPort,
         type:'GET',
         success:function(data){
-            console.log(data);
-            console.log(data["serialPort"]);
-            console.log(data["data"]["temperature"]);
-
-            //$('div:regex(class, arduino[0-9]+).COM1 #temperature').val(data["data"]["temperature"]);
+            //console.log(data);
+            //console.log(data["serialPort"]);
             $.each(data['data'], function(key, value) {
                 console.log( "The key is '" + key + "' and the value is '" + value + "'" );
-                $('div:regex(class, arduino[0-9]+).'+comPort+' #'+key).val(value);
+                if($('div:regex(class, arduino[0-9]+).'+comPort+' #'+key ).hasClass('sensor') )
+                {
+                    $('div:regex(class, arduino[0-9]+).'+comPort+' #'+key).val(value);
+                }
+                else
+                {
+
+                    $('div:regex(class, arduino[0-9]+).'+comPort+' #'+key).prop('checked', value);
+                }
+
             });
         }
     });
@@ -169,7 +175,7 @@ function runner()
                 comPort = arduinoclasses[i];
             }
         }
-        console.log("will update "+comPort)
+        //console.log("will update "+comPort)
         getLine(comPort);
     });
 }
