@@ -1,6 +1,8 @@
 if (!($('#log1').length <= 0)) {
     console.log('Element found');
     var interval = setInterval(function(){runner();}, 1000);
+    // can be stopped with:
+    // window.clearInterval(interval)
 }
 
 /*
