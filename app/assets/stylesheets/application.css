@@ -82,3 +82,10 @@ body{
     filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='bg.jpg', sizingMethod='scale') !important;
     -ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='bg.jpg', sizingMethod='scale')" !important;
 }
+
+.callout{
+    background: rgba(245, 250, 255, 0.9) !important;
+}
+
+
+
