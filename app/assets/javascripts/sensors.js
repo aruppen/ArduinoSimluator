@@ -147,8 +147,7 @@ function getLine(comPort)
                 }
                 else
                 {
-
-                    $('div:regex(class, arduino[0-9]+).'+comPort+' #'+key).prop('checked', value);
+                    $('div:regex(class, arduino[0-9]+).'+comPort+' #'+key).prop('checked', $.parseJSON(value));
                 }
 
             });
