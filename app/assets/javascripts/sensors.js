@@ -68,18 +68,18 @@ function xwotcallback(arduino)
     console.log('Updating Arduino: '+arduino+" on serial port "+serialPort);
     var jsonText = {'serialPort' : serialPort, 'data' : {}};
     $('.'+arduino+' .xwot').each(function( index ) {
-
+        var hwname = $(this).attr('id');//.replace(/[0-9]+/i, '');
         var value = "";
         if($(this ).hasClass('sensor') )
         {
-            var hwname = $(this).attr('id').replace(/[0-9]+/i, '');
+            //var hwname = $(this).attr('id').replace(/[0-9]+/i, '');
             value = $( this ).val();
             $('.'+arduino+' #'+hwname+"text").text(value);
             console.log( index + ": (Got A sensor "+hwname+") " + value);
         }
         else
         {
-            var hwname = $(this).attr('id')//.replace(/[0-9]+/i, '');
+            //var hwname = $(this).attr('id').replace(/[0-9]+/i, '');
             value = $( this ).prop('checked');
             console.log( index + ": (Got An Acutator"+hwname+") " +  value);
         }
