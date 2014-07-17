@@ -68,18 +68,16 @@ function xwotcallback(arduino)
     console.log('Updating Arduino: '+arduino+" on serial port "+serialPort);
     var jsonText = {'serialPort' : serialPort, 'data' : {}};
     $('.'+arduino+' .xwot').each(function( index ) {
-        var hwname = $(this).attr('id');//.replace(/[0-9]+/i, '');
+        var hwname = $(this).attr('id').replace(/[0-9]+/i, '');
         var value = "";
         if($(this ).hasClass('sensor') )
         {
-            //var hwname = $(this).attr('id').replace(/[0-9]+/i, '');
             value = $( this ).val();
             $('.'+arduino+' #'+hwname+"text").text(value);
             console.log( index + ": (Got A sensor "+hwname+") " + value);
         }
         else
         {
-            //var hwname = $(this).attr('id').replace(/[0-9]+/i, '');
             value = $( this ).prop('checked');
             console.log( index + ": (Got An Acutator"+hwname+") " +  value);
         }
@@ -143,13 +141,17 @@ function getLine(comPort)
             //console.log(data["serialPort"]);
             $.each(data['data'], function(key, value) {
                 console.log( "The key is '" + key + "' and the value is '" + value + "'" );
-                if($('div:regex(class, arduino[0-9]+).'+comPort+' #'+key ).hasClass('sensor') )
+                if($('div:regex(class, arduino[0-9]+).'+comPort+' input:regex(id, '+key+'[0-9]*)').hasClass('sensor') )
                 {
-                    $('div:regex(class, arduino[0-9]+).'+comPort+' #'+key).val(value);
+                    var hwelement = $('div:regex(class, arduino[0-9]+).'+comPort+' input:regex(id, '+key+'[0-9]*)')
+                    hwelement.val(value);
+                    var hwname = hwelement.attr('id')
+                    $('div:regex(class, arduino[0-9]+).'+comPort+' #'+hwname+"text").text(value);
                 }
                 else
                 {
-                    $('div:regex(class, arduino[0-9]+).'+comPort+' #'+key).prop('checked', $.parseJSON(value));
+                    var hwelement = $('div:regex(class, arduino[0-9]+).'+comPort+' input:regex(id, '+key+'[0-9]*)')
+                    hwelement.prop('checked', $.parseJSON(value));
                 }
 
             });
