@@ -33,6 +33,7 @@ jQuery.expr[':'].regex = function(elem, index, match) {
 function updateComPort(arduino, option){
     var selectedOption = option.value;
     console.log(selectedOption);
+    console.log(arduino)
     var arduinoclasses = $('.'+arduino).attr('class').split(' ');
     var oldCom;
     for(var i in arduinoclasses)

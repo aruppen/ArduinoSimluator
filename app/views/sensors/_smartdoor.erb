@@ -1,0 +1,57 @@
+<div class="row arduino<%= arduinoNumber %>">
+  <div class="panel callout radius">
+    <div class="fi-eject right" onclick="removeArduino('arduino<%=arduinoNumber%>')"></div>
+    <div class="row">
+      <span class="label">Smart Door</span>
+    </div>
+    <div class="row">
+      <div class="arduino<%= arduinoNumber2 %>">
+        <div class="panel callout radius">
+          <div class="row">
+            <span class="label">Locked Mechanism</span>
+          </div>
+          <div class="row">
+            <select id="serialPortSelector" class="com1 columns large-4 right" onchange="updateComPort('arduino<%=arduinoNumber2%>', this)">
+              <option value="null">Select Port</option>
+              <option value="COM1">COM1</option>
+              <option value="COM3">COM3</option>
+              <option value="COM5">COM5</option>
+              <option value="COM7">COM7</option>
+              <option value="COM9">COM9</option>
+            </select>
+          </div>
+          <div class="row">
+            <span class="columns large-3">Locked / Unlocked </span>
+
+            <div class="columns left switch round large-4">
+              <input id="locked<%= arduinoNumber2 %>" type="checkbox" onchange="xwotcallback('arduino<%=arduinoNumber2%>')" class="xwot actuator">
+              <label for="locked<%= arduinoNumber2 %>"></label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="arduino<%= arduinoNumber3 %>">
+        <div class="panel callout radius">
+          <div class="row">
+            <span class="label">Opening Mechanism</span>
+          </div>
+          <div class="row">
+            <select id="serialPortSelector" class="com1 columns large-4 right" onchange="updateComPort('arduino<%=arduinoNumber3%>', this)">
+              <option value="null">Select Port</option>
+              <option value="COM1">COM1</option>
+              <option value="COM3">COM3</option>
+              <option value="COM5">COM5</option>
+              <option value="COM7">COM7</option>
+              <option value="COM9">COM9</option>
+            </select>
+          </div>
+          <div class="row">
+            <span class="columns large-3">Open / Close </span>
+            <input id="open" type="range" min="0" max="100" onchange="xwotcallback('arduino<%=arduinoNumber3%>')" class="xwot sensor columns large-8"/>
+            <span id="humiditytext" class="columns large-1">0</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

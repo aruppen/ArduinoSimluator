@@ -53,6 +53,8 @@ class SensorsController < ApplicationController
     type = params["type"].to_s
     logger.debug  "Will create "+type
     arduinoNumber = rand(9999999)
+    arduinoNumber2 = rand(9999999)
+    arduinoNumber3 = rand(9999999)
     case type
       when 'dht11'
         arduinoPart = 'sensors/dht11'
@@ -66,12 +68,14 @@ class SensorsController < ApplicationController
         arduinoPart = 'sensors/motor'
       when 'lightbulb'
         arduinoPart = 'sensors/lightbulb'
+      when 'smartdoor'
+        arduinoPart = 'sensors/smartdoor'
       else
         arduinoPart = 'sensors/dht11'
     end
 
     respond_to do |format|
-      format.json {render :json => { :value => render_to_string(:partial => arduinoPart, :formats => [:html], :layout => false, :locals => {:arduinoNumber => arduinoNumber}) }.to_json}
+      format.json {render :json => { :value => render_to_string(:partial => arduinoPart, :formats => [:html], :layout => false, :locals => {:arduinoNumber => arduinoNumber, :arduinoNumber2 => arduinoNumber2, :arduinoNumber3 => arduinoNumber3}) }.to_json}
     end
   end
 

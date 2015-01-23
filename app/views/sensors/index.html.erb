@@ -1,15 +1,27 @@
 <div class="row">
   <div class="columns large-3 panel">
     <div class="panel callout radius">
-      <div class="row"></div>
+      <div class="row">
+        <span class="label">Sensors</span>
+      </div>
       <div id="log1" onclick="instantiateArduino('dht11')"><a href="#">DHT11</a></div>
       <div id="log2" onclick="instantiateArduino('light')"><a href="#">Light Sensor</a></div>
+    </div>
+
+    <div class="panel callout radius">
+      <div class="row">
+        <span class="label">Actuators</span>
+      </div>
       <div id="log3" onclick="instantiateArduino('led')"><a href="#">Led</a></div>
       <div id="log4" onclick="instantiateArduino('switch')"><a href="#">Switch Button</a></div>
       <div id="log5" onclick="instantiateArduino('motor')"><a href="#">Motor</a></div>
     </div>
     <div class="panel callout radius">
+      <div class="row">
+        <span class="label">Scenarios</span>
+      </div>
       <div id="log6" onclick="instantiateArduino('lightbulb')"><a href="#">Smart Light Bulb</a></div>
+      <div id="log7" onclick="instantiateArduino('smartdoor')"><a href="#">Smart Door</a></div>
       <div id="log4"></div>
     </div>
   </div>
@@ -35,18 +47,16 @@
         </div>
         <div class="row">
           <span class="columns large-3">Thermistor </span>
-          <input id="temperature" type="range"  min="0" max="100" onchange="xwotcallback('arduino1234')" class="xwot sensor columns large-8"/>
+          <input id="temperature" type="range" min="0" max="100" onchange="xwotcallback('arduino1234')" class="xwot sensor columns large-8"/>
           <span id="temperaturetext" class="columns large-1">0</span>
         </div>
         <div class="row">
           <span class="columns large-3">Humidity </span>
-          <input id="humidity" type="range"  min="0" max="100" onchange="xwotcallback('arduino1234')" class="xwot sensor columns large-8"/>
+          <input id="humidity" type="range" min="0" max="100" onchange="xwotcallback('arduino1234')" class="xwot sensor columns large-8"/>
           <span id="humiditytext" class="columns large-1">0</span>
         </div>
       </div>
     </div>
-
-
 
 
     <div class="row arduino4321">
@@ -67,11 +77,12 @@
         </div>
         <div class="row">
           <span class="columns large-3">Light Sensor </span>
-          <input id="lightsensor" type="range"  min="0" max="100" onchange="xwotcallback('arduino4321')" class="xwot sensor columns large-8"/>
+          <input id="lightsensor" type="range" min="0" max="100" onchange="xwotcallback('arduino4321')" class="xwot sensor columns large-8"/>
           <span id="lightsensortext" class="columns large-1">0</span>
         </div>
         <div class="row">
           <span class="columns large-3">Light Switch </span>
+
           <div class="columns left switch round large-4">
             <input id="lightswitch" type="checkbox" onchange="xwotcallback('arduino4321')" class="xwot actuator">
             <label for="lightswitch"></label>
