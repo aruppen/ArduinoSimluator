@@ -16,3 +16,5 @@ B1;2802;0c# See https://help.github.com/articles/ignoring-files for more about i
 /tmp
 .idea/
 doc/
+
+public/assets/

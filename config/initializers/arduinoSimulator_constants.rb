@@ -1,0 +1,1 @@
+AS_CONFIG = YAML.load_file("#{::Rails.root}/config/arduinoSimulator.yml")[::Rails.env]

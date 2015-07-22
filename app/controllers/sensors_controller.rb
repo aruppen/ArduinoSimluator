@@ -91,11 +91,10 @@ class SensorsController < ApplicationController
     splitted = port.split(//)
     splitted[splitted.size - 1] = (splitted[splitted.size - 1].to_i + 1).to_s
     port2 = splitted.join()
-    port_str = "/home/ruppena/"  #may be different for you
 
-    @@socats[port] = IO.popen('socat -d -d pty,raw,echo=0,link='+port_str+port+' pty,raw,echo=0,link='+port_str+port2)
+    @@socats[port] = IO.popen('socat -d -d pty,raw,echo=0,link='+AS_CONFIG['homedir']+port+' pty,raw,echo=0,link='+AS_CONFIG['homedir']+port2)
     sleep(2)
-    @@sockets[params["serialPort"]] = Arduino::Arduino.new(port_str+port)
+    @@sockets[params["serialPort"]] = Arduino::Arduino.new(AS_CONFIG['homedir']+port)
     @@sockets[params["serialPort"]].read
     return 0
   end

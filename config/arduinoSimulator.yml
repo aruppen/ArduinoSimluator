@@ -1,0 +1,9 @@
+development:
+  homedir: "/Volumes/home/ruppena/"
+
+test:
+  homedir: "/Volumes/home/ruppena/"
+
+
+production:
+  homedir: "/Volumes/home/ruppena/"
